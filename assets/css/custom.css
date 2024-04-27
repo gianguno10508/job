@@ -1,0 +1,9 @@
+.header-area .logo a{
+    color: #000;
+    font-size: 22px;
+    border: 1px solid;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 3px;
+}

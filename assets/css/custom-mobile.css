@@ -1,0 +1,6 @@
+.mobile_menu{
+    z-index: 10000;
+}
+.mobile-button-sign a{
+    padding: 15px !important;
+}
