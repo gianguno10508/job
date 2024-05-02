@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 16, 2023 lúc 07:39 AM
--- Phiên bản máy phục vụ: 10.4.24-MariaDB
--- Phiên bản PHP: 7.4.29
+-- Host: 127.0.0.1
+-- Generation Time: May 02, 2024 at 03:59 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,23 +18,23 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `job`
+-- Database: `job`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
-  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `img` text COLLATE utf8_unicode_ci NOT NULL
+  `title` varchar(255) NOT NULL,
+  `img` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `title`, `img`) VALUES
@@ -49,64 +49,68 @@ INSERT INTO `categories` (`id`, `title`, `img`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `cvs`
+-- Table structure for table `cvs`
 --
 
 CREATE TABLE `cvs` (
   `id` int(11) NOT NULL,
-  `data_cv` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `cver` text COLLATE utf8_unicode_ci NOT NULL,
+  `data_cv` longtext NOT NULL,
+  `cver` text NOT NULL,
   `id_job` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `cvs`
+-- Dumping data for table `cvs`
 --
 
 INSERT INTO `cvs` (`id`, `data_cv`, `cver`, `id_job`) VALUES
-(4, 'DaoNgocHau.docx', 'testuser', 3);
+(4, 'DaoNgocHau.docx', 'testuser', 3),
+(5, 'DaoNgocHau.docx', 'testuser1', 11);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `jobs`
+-- Table structure for table `jobs`
 --
 
 CREATE TABLE `jobs` (
   `id` int(11) NOT NULL,
-  `title` text COLLATE utf8_unicode_ci NOT NULL,
-  `descrip` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `title` text NOT NULL,
+  `descrip` text DEFAULT NULL,
   `date_post` date NOT NULL,
-  `loca` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `price` int(11) NOT NULL,
-  `phone_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `loca` varchar(255) NOT NULL,
+  `range_price` text NOT NULL,
+  `phone_number` varchar(255) NOT NULL,
   `id_status` int(11) NOT NULL,
   `id_category` int(11) NOT NULL,
-  `user` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `user` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `jobs`
+-- Dumping data for table `jobs`
 --
 
-INSERT INTO `jobs` (`id`, `title`, `descrip`, `date_post`, `loca`, `price`, `phone_number`, `id_status`, `id_category`, `user`) VALUES
-(2, 'Thiết kế Web', '', '2022-11-26', 'Thái Nguyên', 100000, '0123456789', 1, 1, 'user'),
-(3, 'Phục vụ quán', '', '2022-12-08', 'Thái Nguyên', 20000, '0123456789', 1, 2, 'user'),
-(5, 'test huy cong viec', 'test huy cong viec', '2023-02-01', 'test huy cong viec', 234343, '34324534', 1, 5, 'user');
+INSERT INTO `jobs` (`id`, `title`, `descrip`, `date_post`, `loca`, `range_price`, `phone_number`, `id_status`, `id_category`, `user`) VALUES
+(2, 'Thiết kế Web', '', '2023-02-19', 'Thái Nguyên', '{\"range\":\"trongkhoang\",\"tu\":\"1231\",\"den\":\"123434\"}', '0123456789', 1, 1, 'user'),
+(3, 'Phục vụ quán', '', '2023-02-19', 'Thái Nguyên', '{\"range\":\"thoathuan\",\"tu\":\"\",\"den\":\"\"}', '0123456789', 1, 1, 'user'),
+(9, 'Công việc A', 'Test công việc A', '2023-02-19', 'Hà Nội', '{\"range\":\"trongkhoang\",\"tu\":\"12345\",\"den\":\"123456\"}', '0123456789', 1, 6, 'user'),
+(10, 'Công việc B', 'Công việc B', '2023-02-19', 'Thái Nguyên', '{\"range\":\"thoathuan\",\"tu\":\"\",\"den\":\"\"}', '0123456789', 1, 2, 'user'),
+(11, 'Công việc C', '', '2023-02-19', 'Thái Nguyên', '{\"range\":\"trongkhoang\",\"tu\":\"123444\",\"den\":\"1234544\"}', '0123456789', 3, 7, 'user'),
+(12, 'Công việc D', '', '2023-02-19', 'Hà Nội', '{\"range\":\"trongkhoang\",\"tu\":\"1231\",\"den\":\"12341\"}', '0123456789', 1, 2, 'user');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `role_user`
+-- Table structure for table `role_user`
 --
 
 CREATE TABLE `role_user` (
   `id` int(11) NOT NULL,
-  `role` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `role` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `role_user`
+-- Dumping data for table `role_user`
 --
 
 INSERT INTO `role_user` (`id`, `role`) VALUES
@@ -117,16 +121,16 @@ INSERT INTO `role_user` (`id`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `status_post`
+-- Table structure for table `status_post`
 --
 
 CREATE TABLE `status_post` (
   `id` int(11) NOT NULL,
-  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `title` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `status_post`
+-- Dumping data for table `status_post`
 --
 
 INSERT INTO `status_post` (`id`, `title`) VALUES
@@ -137,109 +141,113 @@ INSERT INTO `status_post` (`id`, `title`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `pass` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `username` varchar(255) NOT NULL,
+  `pass` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `id_role` int(11) NOT NULL,
   `id_job` int(11) DEFAULT NULL,
-  `id_cv` int(11) DEFAULT NULL
+  `id_cv` int(11) DEFAULT NULL,
+  `phone_number` text NOT NULL,
+  `company` text NOT NULL,
+  `address` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `user`
+-- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `pass`, `email`, `id_role`, `id_job`, `id_cv`) VALUES
-(1, 'admin', '12345678', NULL, 1, NULL, 0),
-(2, 'user', '123456789', NULL, 2, 1, 0),
-(3, 'testuser', 'testuser', NULL, 3, NULL, 0),
-(4, 'test', '123456789', 'test@gmail.com', 3, NULL, NULL),
-(5, 'test123', '123456789', 'test1234@gmail.com', 3, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `pass`, `email`, `id_role`, `id_job`, `id_cv`, `phone_number`, `company`, `address`) VALUES
+(1, 'admin', '123456789', NULL, 1, NULL, 0, '', '', ''),
+(2, 'user', '12345678', 'user@gmail.com', 2, 1, 0, '12345678', 'Test Company', 'Test Address'),
+(3, 'testuser', 'testuser', NULL, 3, NULL, 0, '', '', ''),
+(4, 'test', '123456789', 'test@gmail.com', 3, NULL, NULL, '1234567', 'test company', 'test address'),
+(5, 'test123', '123456789', 'test1234@gmail.com', 3, NULL, NULL, '', '', ''),
+(6, 'testuser1', '12345678', 'test@gmail.com', 3, NULL, NULL, '1234567890', '', 'Thai Nguyen');
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `cvs`
+-- Indexes for table `cvs`
 --
 ALTER TABLE `cvs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `jobs`
+-- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `role_user`
+-- Indexes for table `role_user`
 --
 ALTER TABLE `role_user`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `status_post`
+-- Indexes for table `status_post`
 --
 ALTER TABLE `status_post`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT cho bảng `cvs`
+-- AUTO_INCREMENT for table `cvs`
 --
 ALTER TABLE `cvs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT cho bảng `jobs`
---
-ALTER TABLE `jobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT cho bảng `role_user`
---
-ALTER TABLE `role_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT cho bảng `status_post`
---
-ALTER TABLE `status_post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT cho bảng `user`
---
-ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `role_user`
+--
+ALTER TABLE `role_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `status_post`
+--
+ALTER TABLE `status_post`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
