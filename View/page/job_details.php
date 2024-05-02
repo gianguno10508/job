@@ -3,8 +3,7 @@
 
     <!-- Hero Area Start-->
     <div class="slider-area ">
-        <div class="single-slider section-overly slider-height2 d-flex align-items-center"
-            data-background="assets/img/hero/about.jpg">
+        <div class="single-slider section-overly slider-height2 d-flex align-items-center" data-background="assets/img/hero/about.jpg">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -39,7 +38,7 @@
                                 <?php
                                 foreach ($categories as $k => $category) {
                                     if ($category['id'] == $jobID['id_category']) {
-                                        ?>
+                                ?>
                                         <ul>
                                             <li>
                                                 <?php echo $category['title']; ?>
@@ -51,7 +50,7 @@
                                                 <?php echo $jobID['price']; ?> VND
                                             </li>
                                         </ul>
-                                        <?php
+                                <?php
                                     }
                                 }
                                 ?>
@@ -81,10 +80,16 @@
                             <h4>Tổng quan công việc</h4>
                         </div>
                         <ul>
-                            <li>Ngày đăng : <span>
+                            <li>Tên công ty: <span>
+                                    <?php echo $userDetail['company']; ?>
+                                </span></li>
+                            <li>Địa chỉ công ty: <span>
+                                    <?php echo $userDetail['address']; ?>
+                                </span></li>
+                            <li>Ngày đăng bài: <span>
                                     <?php echo $jobID['date_post']; ?>
                                 </span></li>
-                            <li>Địa chỉ : <span>
+                            <li>Địa chỉ làm việc: <span>
                                     <?php echo $jobID['loca']; ?>
                                 </span></li>
                             <li>Số điện thoại : <span>
@@ -96,25 +101,25 @@
                         </ul>
                         <?php
                         if (isset($_SESSION['role'])) {
-                            if(isset($checkCV)){
-                                if($checkCV == 1){
+                            if (isset($checkCV)) {
+                                if ($checkCV == 1) {
                                     echo '<h5>Bạn đã nộp CV thành công!!!</h5>';
-                                }elseif($checkCV == 2){
+                                } elseif ($checkCV == 2) {
                                     echo '<h5>Bạn chỉ upload được file docx hoặc pdf!!!</h5>';
-                                }elseif($checkCV == 3){
+                                } elseif ($checkCV == 3) {
                                     echo '<h5>File quá lơn!!!</h5>';
-                                }elseif($checkCV == 4){
+                                } elseif ($checkCV == 4) {
                                     echo '<h5>Upload file lỗi!!!</h5>';
                                 }
                             }
                             if ($_SESSION['role'] == 3) {
-                                ?>
+                        ?>
                                 <form method="post" enctype="multipart/form-data">
                                     <input type="file" name="mycv" required>
                                     <input type="submit" name="savecv" value="Nộp CV ứng tuyển ngay">
                                     <!-- <button type="submit" name="save">Nộp CV ứng tuyển ngay</button> -->
                                 </form>
-                                <?php
+                        <?php
                             }
                         }
                         ?>

@@ -1,4 +1,4 @@
-<?php include ('View/custom/header.php'); ?>
+<?php include('View/custom/header.php'); ?>
 <div class="page-account">
     <div class="container">
         <div id="main-content" class="main-content">
@@ -11,14 +11,15 @@
                                     <ul>
                                         <li><a href="?action=account&dashboard_user">Dashboard</a></li>
                                         <?php if ($_SESSION['role'] == 2) {
-                                            ?>
+                                        ?>
                                             <li><a href="?action=account&jobs">Công việc</a></li>
-                                            <?php
+                                            <li><a href="?action=account&infor_ntd">Thông tin cá nhân</a></li>
+                                        <?php
                                         } else {
-                                            ?>
+                                        ?>
                                             <li><a href="?action=account&cvs">My CV</a></li>
                                             <li><a href="?action=account&infor_ntv">Thông tin cá nhân</a></li>
-                                            <?php
+                                        <?php
                                         } ?>
 
                                         <li><a href="?action=account&changepass">Đổi mật khẩu</a></li>
@@ -28,7 +29,7 @@
                                 <div class="col-right col-md-9">
                                     <?php
                                     if (isset($_GET['dashboard_user'])) {
-                                        ?>
+                                    ?>
                                         <h2>Hello
                                             <?php echo $_SESSION['username']; ?>
                                         </h2>
@@ -36,9 +37,9 @@
                                             Magni aspernatur nemo accusantium quas, maxime debitis impedit alias
                                             blanditiis omnis excepturi ducimus ipsa atque. Hic nobis ab itaque minus!
                                         </p>
-                                        <?php
+                                    <?php
                                     } elseif (isset($_GET['jobs'])) {
-                                        ?>
+                                    ?>
                                         <div class="main-action">
                                             <h5>Công việc của tôi</h5>
                                             <a class="add-job-action" href="?action=account&add-job">Thêm công việc mới</a>
@@ -71,7 +72,7 @@
                                                                     # code...
                                                                     if ($status['id'] == $job['id_status']) {
                                                                         $i++;
-                                                                        ?>
+                                                ?>
                                                                         <tr>
                                                                             <td>
                                                                                 <?php echo $i; ?>
@@ -104,12 +105,18 @@
                                                                                         foreach ($cvs as $key => $cv) {
                                                                                             # code...
                                                                                             if ($cv['id_job'] == $job['id']) {
-                                                                                                ?>
-                                                                                                <li>
-                                                                                                    <a
-                                                                                                        href="?action=account&download&cv_id=<?php echo $cv['id']; ?>"><?php echo $cv['data_cv']; ?></a>
-                                                                                                </li>
-                                                                                                <?php
+                                                                                                foreach ($dataUser as $k => $data) {
+                                                                                                    # code...
+                                                                                                    if ($data['username'] == $cv['cver']) {
+                                                                                    ?>
+                                                                                                        <li>
+                                                                                                            <span>SDT: <?php echo $data['phone_number']; ?></span>
+                                                                                                            <span>ĐC: <?php echo $data['address']; ?></span>
+                                                                                                            <a href="?action=account&download&cv_id=<?php echo $cv['id']; ?>"><?php echo $cv['data_cv']; ?></a>
+                                                                                                        </li>
+                                                                                    <?php
+                                                                                                    }
+                                                                                                }
                                                                                             }
                                                                                         }
                                                                                     }
@@ -117,13 +124,11 @@
                                                                                 </ul>
                                                                             </td>
                                                                             <td>
-                                                                                <a onclick="return confirm('Bạn có chắc chắn muốn sửa?')"
-                                                                                    href="?action=account&update_job&id=<?php echo $job['id']; ?>">Sửa</a>
-                                                                                <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                                    href="?action=account&delete_job&id=<?php echo $job['id']; ?>">Xóa</a>
+                                                                                <a onclick="return confirm('Bạn có chắc chắn muốn sửa?')" href="?action=account&update_job&id=<?php echo $job['id']; ?>">Sửa</a>
+                                                                                <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')" href="?action=account&delete_job&id=<?php echo $job['id']; ?>">Xóa</a>
                                                                             </td>
                                                                         </tr>
-                                                                        <?php
+                                                <?php
                                                                     }
                                                                 }
                                                             }
@@ -133,24 +138,24 @@
                                                 ?>
                                             </tbody>
                                         </table>
-                                        <?php
+                                    <?php
                                     } elseif (isset($_GET['changepass'])) {
-                                        ?>
+                                    ?>
                                         <div class="message" style="text-align: center;">
-                                            <?php if (isset($check)): ?>
-                                                <?php if ($check == 2): ?>
+                                            <?php if (isset($check)) : ?>
+                                                <?php if ($check == 2) : ?>
                                                     <p style="font-size: 18px; font-weight: 700; margin-top: 10px;">Mật khẩu cũ
                                                         không khớp!!</p>
-                                                <?php elseif ($check == -1): ?>
+                                                <?php elseif ($check == -1) : ?>
                                                     <p style="font-size: 18px; font-weight: 700; margin-top: 10px;">Hai mật khẩu
                                                         không khớp!!</p>
-                                                <?php elseif ($check == 1): ?>
+                                                <?php elseif ($check == 1) : ?>
                                                     <p style="font-size: 18px; font-weight: 700; margin-top: 10px;">Mật khẩu lớn hơn
                                                         hoặc bằng 8 kí tự!!</p>
-                                                <?php elseif ($check == 3): ?>
+                                                <?php elseif ($check == 3) : ?>
                                                     <p style="font-size: 18px; font-weight: 700; margin-top: 10px;">Mật khẩu mới
                                                         trùng mật khẩu cũ!!</p>
-                                                <?php else: ?>
+                                                <?php else : ?>
                                                     <p style="font-size: 18px; font-weight: 700; margin-top: 10px;">Đổi mật khẩu
                                                         thành công!</p>
                                                 <?php endif; ?>
@@ -173,8 +178,7 @@
                                                 <div class="repassnew">
                                                     <label for="repasswordnew">
                                                         <p>Nhập lại mật khẩu mới*:</p>
-                                                        <input type="password" name="repasswordnew" id="repasswordnew"
-                                                            required>
+                                                        <input type="password" name="repasswordnew" id="repasswordnew" required>
                                                     </label>
                                                 </div>
                                                 <div class="button-link">
@@ -182,18 +186,20 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <?php
+                                    <?php
                                     } elseif (isset($_GET['cvs'])) {
-                                        ?>
+                                    ?>
                                         <div class="main-action">
                                             <h5>CV của tôi</h5>
                                         </div>
                                         <table border="1px">
                                             <thead>
                                                 <th>STT</th>
+                                                <th>Tên công ty</th>
+                                                <th>Địa chỉ công ty</th>
                                                 <th>Tên việc</th>
                                                 <th>Mức lương</th>
-                                                <th>Địa điểm</th>
+                                                <th>Địa điểm làm việc</th>
                                                 <th>Số điện thoại</th>
                                                 <th>CV đã nộp</th>
                                                 <th>Hành động</th>
@@ -209,33 +215,42 @@
                                                             foreach ($jobs as $key => $job) {
                                                                 # code...
                                                                 if ($cv['id_job'] == $job['id']) {
-                                                                    ?>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <?php echo $i; ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php echo $job['title']; ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php echo $job['price']; ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php echo $job['loca']; ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php echo $job['phone_number']; ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a
-                                                                                href="?action=account&download&cv_id=<?php echo $cv['id']; ?>"><?php echo $cv['data_cv']; ?></a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                                href="?action=account&delete_cv&id=<?php echo $cv['id']; ?>">Xóa</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <?php
+                                                                    foreach ($dataUser as $k => $data) {
+                                                                        # code...
+                                                                        if ($data['username'] == $job['user']) {
+                                                ?>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <?php echo $i; ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <?php echo $data['company']; ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <?php echo $data['address']; ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <?php echo $job['title']; ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <?php echo $job['price']; ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <?php echo $job['loca']; ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <?php echo $job['phone_number']; ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <a href="?action=account&download&cv_id=<?php echo $cv['id']; ?>"><?php echo $cv['data_cv']; ?></a>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')" href="?action=account&delete_cv&id=<?php echo $cv['id']; ?>">Xóa</a>
+                                                                                </td>
+                                                                            </tr>
+                                                <?php
+                                                                        }
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -244,9 +259,9 @@
                                                 ?>
                                             </tbody>
                                         </table>
-                                        <?php
+                                    <?php
                                     } elseif (isset($_GET['infor_ntv'])) {
-                                        ?>
+                                    ?>
                                         <div class="message" style="text-align: center;">
                                         </div>
                                         <h2>Hello
@@ -257,30 +272,25 @@
                                                 <div class="email">
                                                     <label for="email">
                                                         <p>Email:</p>
-                                                        <input type="email" value="<?php echo $dataUserDetail['email'] ?>"
-                                                            name="email" id="email" disabled required>
+                                                        <input type="email" value="<?php echo $dataUserDetail['email'] ?>" name="email" id="email" disabled required>
                                                     </label>
                                                 </div>
                                                 <div class="phone_number">
                                                     <label for="phone_number">
                                                         <p>Số điện thoại*:</p>
-                                                        <input type="number" name="phone_number"
-                                                            value="<?php echo $dataUserDetail['phone_number'] ?>"
-                                                            id="phone_number" required>
+                                                        <input type="number" name="phone_number" value="<?php echo $dataUserDetail['phone_number'] ?>" id="phone_number" required>
                                                     </label>
                                                 </div>
                                                 <div class="company">
                                                     <label for="company">
                                                         <p>Công ty:</p>
-                                                        <input type="text" name="company" id="company"
-                                                            value="<?php echo $dataUserDetail['company'] ?>">
+                                                        <input type="text" name="company" id="company" value="<?php echo $dataUserDetail['company'] ?>">
                                                     </label>
                                                 </div>
                                                 <div class="address">
                                                     <label for="address">
                                                         <p>Địa chỉ*:</p>
-                                                        <input type="text" name="address" id="address"
-                                                            value="<?php echo $dataUserDetail['address'] ?>">
+                                                        <input required type="text" name="address" id="address" value="<?php echo $dataUserDetail['address'] ?>">
                                                     </label>
                                                 </div>
                                                 <div class="button-link">
@@ -288,7 +298,46 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <?php
+                                    <?php
+                                    } elseif (isset($_GET['infor_ntd'])) {
+                                    ?>
+                                        <div class="message" style="text-align: center;">
+                                        </div>
+                                        <h2>Hello
+                                            <?php echo $_SESSION['username']; ?>
+                                        </h2>
+                                        <div class="content-form">
+                                            <form method="post" class='form'>
+                                                <div class="email">
+                                                    <label for="email">
+                                                        <p>Email:</p>
+                                                        <input type="email" value="<?php echo $dataUserDetail['email'] ?>" name="email" id="email" disabled required>
+                                                    </label>
+                                                </div>
+                                                <div class="phone_number">
+                                                    <label for="phone_number">
+                                                        <p>Số điện thoại*:</p>
+                                                        <input type="number" name="phone_number" value="<?php echo $dataUserDetail['phone_number'] ?>" id="phone_number" required>
+                                                    </label>
+                                                </div>
+                                                <div class="company">
+                                                    <label for="company">
+                                                        <p>Công ty:</p>
+                                                        <input type="text" name="company" id="company" value="<?php echo $dataUserDetail['company'] ?>">
+                                                    </label>
+                                                </div>
+                                                <div class="address">
+                                                    <label for="address">
+                                                        <p>Địa chỉ*:</p>
+                                                        <input type="text" name="address" id="address" value="<?php echo $dataUserDetail['address'] ?>">
+                                                    </label>
+                                                </div>
+                                                <div class="button-link">
+                                                    <input type="submit" name="update_infor" value="Update">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    <?php
                                     }
                                     ?>
                                 </div>
@@ -300,4 +349,4 @@
         </div>
     </div>
 </div>
-<?php include ('View/custom/footer-home.php'); ?>
+<?php include('View/custom/footer-home.php'); ?>

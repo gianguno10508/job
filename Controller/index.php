@@ -16,7 +16,7 @@ class Controller extends Model
             $action = $_GET['action'];
             switch ($action) {
 
-                /** User */
+                    /** User */
                 case 'login': {
                         if (isset($_POST['login'])) {
                             $count = 0;
@@ -149,6 +149,8 @@ class Controller extends Model
                                         }
                                     }
                                 }
+                                require_once('View/page/account.php');
+                                break;
                             } elseif (isset($_GET['download'])) {
                                 if (isset($_GET['cv_id'])) {
                                     $id = $_GET['cv_id'];
@@ -181,8 +183,18 @@ class Controller extends Model
                                 require_once('View/page/updatejob.php');
                                 break;
                             } else {
-                                $username = $_SESSION['username'];
                                 $dataUserDetail = $this->GetDataUserDetail($username);
+                                if (isset($_GET['infor_ntd']) || isset($_GET['infor_ntv'])) {
+                                    if (isset($_POST['update_infor'])) {
+                                        $user = $_SESSION['username'];
+                                        $phone_number = $_POST['phone_number'];
+                                        $company = $_POST['company'];
+                                        $address = $_POST['address'];
+                                        if ($this->UpdateInfor($user, $phone_number, $company, $address)) {
+                                            header('location: http://localhost/Job/?action=account&dashboard_user');
+                                        }
+                                    }
+                                }
                                 require_once('View/page/account.php');
                                 break;
                             }
@@ -200,7 +212,7 @@ class Controller extends Model
                     }
 
 
-                /** Manager */
+                    /** Manager */
                 case 'manager': {
                         if (isset($_GET['categories_manager'])) {
                             if (isset($_GET['add_categories'])) {
@@ -356,11 +368,12 @@ class Controller extends Model
 
 
 
-                /** Detail job */
+                    /** Detail job */
                 case 'job_detail': {
                         if (isset($_GET['id'])) {
                             $id = $_GET['id'];
                             $jobID = $this->GetJobID($id);
+                            $userDetail = $this->GetDataUserDetail($jobID['user']);
                             if (isset($_POST['savecv'])) {
                                 $filename = $_FILES['mycv']['name'];
                                 $checkCV = 0;
@@ -395,14 +408,14 @@ class Controller extends Model
                         break;
                     }
 
-                /** All job */
+                    /** All job */
                 case 'view-all-jobs': {
                         require_once('View/page/all_jobs.php');
                         break;
                     }
 
 
-                /** Category detail */
+                    /** Category detail */
                 case 'view-category': {
                         if (isset($_GET['id'])) {
                             $id = $_GET['id'];
@@ -421,4 +434,3 @@ class Controller extends Model
         }
     }
 }
-?>
